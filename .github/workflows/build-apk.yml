@@ -19,10 +19,13 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - uses: android-actions/setup-android@v3
-
+      # ubuntu-latest ships the Android SDK (ANDROID_HOME); just add what this project needs
       - name: Android SDK packages
-        run: sdkmanager "platforms;android-34" "build-tools;35.0.0" "ndk;27.0.12077973"
+        run: |
+          SDKM=$(ls -d "$ANDROID_HOME"/cmdline-tools/*/bin/sdkmanager | sort -V | tail -1)
+          echo "Using $SDKM"
+          yes | "$SDKM" --licenses > /dev/null || true
+          "$SDKM" "platforms;android-34" "build-tools;35.0.0" "ndk;27.0.12077973"
 
       - name: Tools for procedural sound generation
         run: |
