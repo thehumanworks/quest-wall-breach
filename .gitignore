@@ -11,3 +11,5 @@ captures/
 gradle/wrapper/gradle-wrapper.jar
 wall-breach.apk
 app/src/main/assets/audio/
+gradlew
+gradlew.bat
